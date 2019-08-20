@@ -5,7 +5,7 @@ require_relative 'sql/migrate.rb'
 
 ActiveRecord::Base.establish_connection(
   adapter: 'sqlite3',
-  database: 'drivers/sql/database/soccer_season'
+  database: 'drivers/sql/soccer_season_db'
 )
 
 CreateDatabase.new.up
