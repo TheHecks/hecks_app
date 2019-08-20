@@ -1,5 +1,6 @@
 require "active_record"
-require_relative 'sql/database/matches/base'
+require_relative 'sql/database/matches'
+
 require_relative 'sql/database/teams/base'
 require_relative 'sql/domain/matches/match'
 require_relative 'sql/domain/teams/team'

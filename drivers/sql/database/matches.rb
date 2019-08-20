@@ -1,0 +1,7 @@
+require_relative 'matches/base'
+require_relative 'matches/match'
+require_relative 'matches/tied_result'
+require_relative 'matches/fixture'
+require_relative 'matches/goal'
+require_relative 'matches/match_team'
+require_relative 'matches/result'
