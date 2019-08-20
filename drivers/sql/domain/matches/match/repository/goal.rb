@@ -2,7 +2,7 @@ module SoccerSeason
   module Matches
     class Match
       class Repository
-        class Goal < MatchesAR
+        class Goal < SQL::Database::Matches::Base
         end
       end
     end

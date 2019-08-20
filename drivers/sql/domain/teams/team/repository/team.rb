@@ -2,7 +2,7 @@ module SoccerSeason
   module Teams
     class Team
       class Repository
-        class Team < TeamsAR
+        class Team < SQL::Database::Teams::Base
         end
       end
     end
