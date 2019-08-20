@@ -1,4 +1,4 @@
-class AddMatches < ActiveRecord::Migration[5.0]
+class CreateDatabase < ActiveRecord::Migration[5.0]
   def up
     create_table :matches_matches, force: true do |t|
       t.integer :fixture_id
@@ -35,5 +35,3 @@ class AddMatches < ActiveRecord::Migration[5.0]
     end
   end
 end
-
-AddMatches.new.up

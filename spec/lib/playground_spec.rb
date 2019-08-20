@@ -24,10 +24,8 @@ describe SoccerSeason::Matches::Match do
       subject.add_goal!(
         player: player, time: Time.now
       )
-
       match = SoccerSeason::Matches::Match::Repository::Match.first
-
-      expect(match.teams).to_not be_empty
+      expect(match.teams).to include(red_team.record)
     end
   end
 end

@@ -7,7 +7,11 @@ module SoccerSeason
         def save(team)
           Team.new(
             name: team.name
-          ).save
+          ).tap do |record|
+            record.save
+            team.send(:record=, record)
+            team.send(:id=, record.id)
+          end
         end
       end
     end
