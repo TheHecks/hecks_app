@@ -1,13 +1,11 @@
 module SoccerSeason
   module Matches
     class Match
-      def record
-        @record
-      end
+      attr_reader :record
+
       private
-      def record=(record)
-        @record = record
-      end
+
+      attr_writer :record
     end
   end
 end

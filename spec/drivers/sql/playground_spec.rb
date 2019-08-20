@@ -1,5 +1,6 @@
-require_relative '../spec_helper'
+require 'spec_helper'
 require 'date'
+require_relative '../../../drivers/sql'
 
 describe SoccerSeason::Matches::Match do
   let(:red_team) { SoccerSeason::Teams::Team.new(name: 'redteam').tap(&:save!) }

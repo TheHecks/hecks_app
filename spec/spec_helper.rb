@@ -1,1 +1,1 @@
-require_relative '../lib/hecksagon'
+require 'soccer_season'
