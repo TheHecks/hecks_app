@@ -7,5 +7,5 @@ require_relative 'sql/matches/match/repository'
 require_relative 'sql/teams/team/repository'
 require_relative 'sql/migrate.rb'
 
-ActiveRecord::Base.establish_connection adapter: "sqlite3", database: "soccer_season_db"
+ActiveRecord::Base.establish_connection adapter: "sqlite3", database: "drivers/sql/database/soccer_season"
 CreateDatabase.new.up
