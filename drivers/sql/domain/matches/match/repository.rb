@@ -3,6 +3,8 @@ module SoccerSeason
     class Match
       class Repository
         Matches = SQL::Database::Matches
+        Teams = SQL::Database::Teams
+
         def save(match)
           Matches::Match.new(
             fixture: Matches::Fixture.new(
@@ -11,7 +13,7 @@ module SoccerSeason
               time: match.fixture.time
             ),
             teams: match.teams.map do |team|
-              Teams::Team::Repository::Team.find(team.id)
+              Teams::Team.find(team.id)
             end,
             goals: match.goals.map do |goal|
               Matches::Goal.new(
@@ -20,8 +22,8 @@ module SoccerSeason
               )
             end,
             result: Matches::Result.new(
-              loser: match.result.try(:loser).try(:id),
-              winner: match.result.try(:winner).try(:id)
+              loser: Teams::Team.find_by(id: match.result.try(:loser).try(:id)),
+              winner: Teams::Team.find_by(id: match.result.try(:winner).try(:id))
             )
           ).save
         end
