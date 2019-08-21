@@ -6,7 +6,7 @@ module SoccerSeason
         Teams = SQL::Database::Teams
 
         def save(match)
-          Matches::Match.new(
+          record = Matches::Match.new(
             fixture: Matches::Fixture.new(
               season: match.fixture.season,
               date: match.fixture.date,
