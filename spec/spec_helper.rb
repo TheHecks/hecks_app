@@ -1,1 +1,1 @@
-require 'soccer_season'
+require_relative '../lib/soccer_season_app'
