@@ -1,41 +1,35 @@
 require 'spec_helper'
-require 'date'
-# require_relative '../../../drivers/sql'
+App = ApplicationPort
 
-SoccerSeasonApp.config do
-  load_driver :sql
+App.config do
+  domain SoccerSeason
 end
 
+describe App do
+  let(:red_team) do
+    App::Teams.save! name: 'redteam'
+  end
 
-describe SoccerSeason::Matches::Match do
+  let(:blue_team) { App::Teams.save! name: 'blueteam' }
+  let(:player) { App::Players.save! name: 'Chris', team: red_team }
+  let(:pitch) { App::Matches.save! name: 'backyard' }
 
-  
-  let(:red_team) { SoccerSeason::Teams::Team.new(name: 'redteam').tap(&:save!) }
-  let(:blue_team) { SoccerSeason::Teams::Team.new(name: 'blueteam').tap(&:save!) }
-  
-  let(:player) { SoccerSeason::Players::Player.new(name: 'Chris', team: red_team) }
   subject do
-    described_class.new(
-      fixture: SoccerSeason::Matches::Fixture.new(
+    App::Matches.save!(
+      fixture: {
         season: 'summer',
         date: Date.today,
         time: Time.now
-      ),
+      },
       teams: [red_team, blue_team],
-      pitch: SoccerSeason::Matches::Pitch.new(name: 'backyard')
+      pitch: pitch
     )
   end
 
   describe '#save' do
     it '' do
-      subject.add_goal!(
-        player: player, time: Time.now
-      )
-      subject.score!
-      ar_match = SQL::Database::Matches::Match.first
-      expect(ar_match.teams).to include(red_team.record)
-      expect(subject.result.winner).to eq(red_team)
-      # expect(ar_match.result.loser).to eq(blue_team.record)
+      App::Matches.add_goal!(subject, player: player, time: Time.now)
+      App::Matches.score!(subject)
     end
   end
 end

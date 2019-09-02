@@ -1,1 +1,3 @@
-require_relative '../lib/soccer_season_app'
+require 'soccer_season'
+require 'date'
+require_relative '../lib/application_port'
