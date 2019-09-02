@@ -1,4 +1,3 @@
-require_relative 'app_command'
 class ApplicationPort
   class CommandBuilder
     def self.build(domain_aggregate, app_module)

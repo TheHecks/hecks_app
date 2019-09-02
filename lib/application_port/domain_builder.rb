@@ -1,4 +1,7 @@
-require_relative('aggregate_builder')
+require_relative 'app_command'
+require_relative 'command_builder'
+require_relative 'aggregate_builder'
+
 class ApplicationPort
   module DomainBuilder
     def self.build(domain, application_port)

@@ -1,5 +1,4 @@
-require 'pry'
-require_relative('application_port/domain_builder')
+require_relative 'application_port/domain_builder'
 
 class ApplicationPort
   include Singleton
