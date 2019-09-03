@@ -7,6 +7,14 @@ class ApplicationPort
     instance.instance_eval(&block)
   end
 
+  def self.domain
+    instance.domain_get
+  end
+
+  def domain_get
+    @domain
+  end
+  
   def domain(domain)
     @domain = domain
     DomainBuilder.build(@domain, self)
