@@ -4,8 +4,10 @@ class ApplicationPort
       domain_aggregate::Head::Commands.constants.each do |command|
         app_command = AppCommand.new(command)
 
-        app_module.class.define_method(app_command.name) do |args|
-          CommandRunner.run(self, args)
+        app_module.instance_eval do
+          def method_missing(name, *args)
+            CommandRunner.run(name, self, args.first)
+          end
         end
       end
     end

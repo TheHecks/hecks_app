@@ -1,10 +1,19 @@
 class ApplicationPort
   class CommandRunner
-    def self.run(app_module, args)
+    def self.run(method, app_module, args)
       domain_aggregate = SoccerSeason.const_get(app_module.to_s.split('::').last)
-      head = domain_aggregate::Head.new(args)
-      result = head.save!
-      args.merge(id: result.instance_variable_get(:@id))
+      id = args.delete(:id)
+      head = domain_aggregate::Head.default(args)
+
+      id =
+        if id
+          domain_aggregate::Head::Repository.fetch(id)
+        else
+          domain_aggregate::Head::Repository.save(head)
+        end
+
+      result = head.send(method)
+      args.merge(id: id)
     end
   end
 end

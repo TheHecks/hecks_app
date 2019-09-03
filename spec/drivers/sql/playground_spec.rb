@@ -8,9 +8,12 @@ end
 describe App do
   let(:red_team) { App::Teams.save!(name: 'redteam') }
   let(:blue_team) { App::Teams.save!(name: 'blueteam') }
-  # let(:player) { App::Players.save!(name: 'Chris', team: SoccerSeason::Teams::Team.new(red_team)) }
+  let(:player) do
+    App::Players.save!(name: 'Chris', team: red_team)
+  end
+
   let(:pitch) { App::Pitches.save!(name: 'backyard') }
-  
+
   let(:fixture) do
     {
       season: 'summer',
@@ -18,7 +21,7 @@ describe App do
       time: Time.now
     }
   end
-  
+
   let(:match) do
     {
       fixture: fixture,
@@ -27,12 +30,11 @@ describe App do
     }
   end
 
-
   describe '#save' do
     it '' do
       App::Matches.save!(match)
-      # App::Matches.add_goal!(subject, player: player, time: Time.now)
-      # App::Matches.score!(subject)
+      App::Matches.add_goal!(match, player: player, time: Time.now)
+      App::Matches.score!(match)
     end
   end
 end
