@@ -1,8 +1,11 @@
 require 'spec_helper'
-App = ApplicationPort
+require_relative '../drivers/dynamodb'
+
+App = HecksApp::ApplicationPort
 
 App.config do
   domain SoccerSeason
+  # driver :Dynamodb
 end
 
 describe App do
