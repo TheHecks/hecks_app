@@ -1,4 +1,3 @@
-require_relative 'command_builder'
 class ApplicationPort
   module AggregateBuilder
     def self.build(domain_aggregate)

@@ -6,30 +6,33 @@ App.config do
 end
 
 describe App do
-  let(:red_team) do
-    App::Teams.save! name: 'redteam'
+  let(:red_team) { App::Teams.save!(name: 'redteam') }
+  let(:blue_team) { App::Teams.save!(name: 'blueteam') }
+  # let(:player) { App::Players.save!(name: 'Chris', team: SoccerSeason::Teams::Team.new(red_team)) }
+  let(:pitch) { App::Pitches.save!(name: 'backyard') }
+  
+  let(:fixture) do
+    {
+      season: 'summer',
+      date: Date.today,
+      time: Time.now
+    }
   end
-
-  let(:blue_team) { App::Teams.save! name: 'blueteam' }
-  let(:player) { App::Players.save! name: 'Chris', team: red_team }
-  let(:pitch) { App::Matches.save! name: 'backyard' }
-
-  subject do
-    App::Matches.save!(
-      fixture: {
-        season: 'summer',
-        date: Date.today,
-        time: Time.now
-      },
+  
+  let(:match) do
+    {
+      fixture: fixture,
       teams: [red_team, blue_team],
       pitch: pitch
-    )
+    }
   end
+
 
   describe '#save' do
     it '' do
-      App::Matches.add_goal!(subject, player: player, time: Time.now)
-      App::Matches.score!(subject)
+      App::Matches.save!(match)
+      # App::Matches.add_goal!(subject, player: player, time: Time.now)
+      # App::Matches.score!(subject)
     end
   end
 end
