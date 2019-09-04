@@ -7,11 +7,11 @@ module HecksApp
   class ApplicationPort
     module DomainBuilder
       def self.build(domain, application_port)
-        domain.constants.each do |domain_constant|
+        domain::Domain.constants.each do |domain_constant|
           application_port.class.const_set(
             domain_constant,
             AggregateBuilder.build(
-              domain.const_get(domain_constant)
+              domain::Domain.const_get(domain_constant)
             )
           )
         end

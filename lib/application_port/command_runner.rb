@@ -2,7 +2,7 @@ module HecksApp
   class ApplicationPort
     class CommandRunner
       def self.run(method, app_module, args)
-        domain_aggregate = ApplicationPort.domain.const_get(app_module.to_s.split('::').last)
+        domain_aggregate = ApplicationPort.domain::Domain.const_get(app_module.to_s.split('::').last)
         id = args.delete(:id)
         head = domain_aggregate::Head.default(args)
 
