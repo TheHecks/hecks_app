@@ -3,14 +3,11 @@ module HecksApp
     class Dynamodb
       module TableBuilder
         def self.build(driver, aggregate_name)
-          domain_object_name = ApplicationPort.domain::Domain.const_get(aggregate_name)::Head.superclass
-          table_name = aggregate_name.to_s + '-' + domain_object_name.to_s.split('::').last
-
           begin
             Dynamodb.client.create_table(
-              table_name: table_name,
+              table_name: Table.new(aggregate_name).name,
               key_schema: [
-                { attribute_name: 'id', key_type: 'HASH'}
+                { attribute_name: 'id', key_type: 'HASH' }
               ],
               attribute_definitions: [
                 { attribute_name: 'id', attribute_type: 'S' }

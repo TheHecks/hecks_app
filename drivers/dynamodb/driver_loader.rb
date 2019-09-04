@@ -1,5 +1,6 @@
 require_relative 'repository_loader'
 require_relative 'table_builder'
+require_relative 'table'
 
 module HecksApp
   module Drivers
