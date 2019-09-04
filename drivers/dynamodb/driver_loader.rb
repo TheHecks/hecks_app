@@ -8,8 +8,8 @@ module HecksApp
       class DriverLoader
         def self.load(driver)
           driver.domain::Domain.constants.each do |aggregate_name|
-            TableBuilder.build(driver, aggregate_name)
-            RepositoryLoader.load(driver, aggregate_name)
+            TableBuilder.build(aggregate_name)
+            RepositoryLoader.load(aggregate_name)
           end
         end
       end

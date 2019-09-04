@@ -1,4 +1,6 @@
+require 'hecks_domain'
 require_relative 'application_port/domain_builder'
+require_relative 'application_port/domain_schema'
 
 module HecksApp
   class ApplicationPort
