@@ -7,9 +7,9 @@ module HecksApp
     class Dynamodb
       class DriverLoader
         def self.load(driver)
-          driver.domain::Domain.constants.each do |aggregate_name|
-            TableBuilder.build(aggregate_name)
-            RepositoryLoader.load(aggregate_name)
+          HecksApp::DOMAIN_SCHEMA.aggregates.each do |aggregate|
+            TableBuilder.build(Table.new(aggregate))
+            RepositoryLoader.load(aggregate.name)
           end
         end
       end

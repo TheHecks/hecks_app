@@ -2,10 +2,10 @@ module HecksApp
   module Drivers
     class Dynamodb
       module TableBuilder
-        def self.build(aggregate_name)
+        def self.build(table)
           begin
             Dynamodb.client.create_table(
-              table_name: Table.new(aggregate_name).name,
+              table_name: table.name,
               key_schema: [
                 { attribute_name: 'id', key_type: 'HASH' }
               ],

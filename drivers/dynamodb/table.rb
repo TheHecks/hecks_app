@@ -2,16 +2,20 @@ module HecksApp
   module Drivers
     class Dynamodb
       class Table
-        def initialize(aggregate_name)
-          @aggregate_name = aggregate_name
+        attr_reader :fields
+        
+        def initialize(aggregate)
+          @aggregate = aggregate
+          @head = @aggregate.instance_variable_get(:@head)
+          @fields = @head.instance_variable_get(:@fields)
         end
 
         def name
-          @aggregate_name.to_s + '-' + domain_object_name.to_s.split('::').last
+          [@aggregate.name.to_s, @head.name.to_s].join('-')
         end
 
-        def domain_object_name
-          ApplicationPort.domain::Domain.const_get(@aggregate_name)::Head.superclass
+        def aggregate_name
+          @aggregate.name
         end
       end
     end
