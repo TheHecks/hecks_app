@@ -4,10 +4,8 @@ require_relative 'dynamodb/driver_loader'
 module HecksApp
   module Drivers
     class Dynamodb
-      attr_reader :domain, :dynamodb
-      def initialize(domain)
+      def initialize
         @client = self.class.client
-        @domain = domain
         load_driver
       end
 

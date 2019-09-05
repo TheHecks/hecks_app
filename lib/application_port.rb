@@ -29,7 +29,7 @@ module HecksApp
     end
 
     def driver(name)
-      @drivers << Drivers.const_get(name).new(@domain)
+      @drivers << Drivers.const_get(name).new
     end
   end
 end
