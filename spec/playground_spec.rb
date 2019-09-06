@@ -37,6 +37,7 @@ describe App do
   describe '#save' do
     it '' do
       match.add_goal!(player: player, time: Time.now)
+      match.score!
       match.save!
 
       expect(
