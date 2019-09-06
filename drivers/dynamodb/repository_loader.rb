@@ -31,8 +31,7 @@ module HecksApp
                   ":id" => domain_object.id
                 }
               ).items.first.as_json.deep_symbolize_keys
-
-              domain_object.class.default(record)
+              domain_object.class.new(record)
             end
           end
         end

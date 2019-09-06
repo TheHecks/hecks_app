@@ -7,7 +7,7 @@ module HecksApp
 
           app_module.instance_eval do
             def method_missing(name, *args)
-              CommandRunner.run(name, self, args.first)
+              CommandRunner.run(name, self, args)
             end
           end
         end

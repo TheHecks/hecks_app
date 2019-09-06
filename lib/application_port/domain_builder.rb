@@ -1,6 +1,8 @@
 require_relative 'app_command'
 require_relative 'command_builder'
 require_relative 'aggregate_builder'
+require_relative 'domain_object_builder'
+require_relative 'factory_builder'
 require_relative 'command_runner'
 
 module HecksApp

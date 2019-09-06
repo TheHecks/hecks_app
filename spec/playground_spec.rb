@@ -9,13 +9,14 @@ App.config do
 end
 
 describe App do
-  let(:red_team) { App::Teams.save!(name: 'redteam') }
-  let(:blue_team) { App::Teams.save!(name: 'blueteam') }
+  let(:red_team) { App::Teams::Team.default(name: 'redteam').tap(&:save!) }
+  let(:blue_team) { App::Teams::Team.default(name: 'blueteam').tap(&:save!) }
+
   let(:player) do
-    App::Players.save!(name: 'Chris', team: red_team)
+    App::Players::Player.default(name: 'Chris', team: red_team).tap(&:save!)
   end
 
-  let(:pitch) { App::Pitches.save!(name: 'backyard') }
+  let(:pitch) { App::Pitches::Pitch.default(name: 'backyard').tap(&:save!) }
 
   let(:fixture) do
     {
@@ -26,21 +27,21 @@ describe App do
   end
 
   let(:match) do
-    App::Matches.save!(
+    App::Matches::Match.default(
       fixture: fixture,
       teams: [red_team, blue_team],
-      pitch: pitch
-    )
+      pitch: pitch.as_json.deep_symbolize_keys
+    ).tap(&:save!)
   end
 
   describe '#save' do
     it '' do
-      result = App::Matches.add_goal!(match, player: player, time: Time.now)
-      result = App::Matches.score!(result)
+      match.add_goal!(player: player, time: Time.now)
+      match.save!
+
       expect(
-        SoccerSeason::Domain::Matches::Match::Repository.fetch(
-          SoccerSeason::Domain::Matches::Match.default(result)
-        ).goals.count
+        SoccerSeason::Domain::Matches::Match::Repository.fetch(match)
+        .goals.count
       ).to eq 1
     end
   end
