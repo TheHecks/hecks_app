@@ -2,19 +2,22 @@ module HecksApp
   class ApplicationPort
     class CommandRunner
       def self.run(method, app_module, args)
-        domain_aggregate = ApplicationPort.domain::Domain.const_get(app_module.to_s.split('::').last)
-        id = args.delete(:id)
+        domain_aggregate = ApplicationPort.domain::Domain.const_get(
+          app_module.to_s.split('::').last
+        )
         head = domain_aggregate::Head.default(args)
 
-        id =
-          if id
-            domain_aggregate::Head::Repository.fetch(id)
+        saved_head =
+          if head.id
+            domain_aggregate::Head::Repository.fetch(head)
           else
             domain_aggregate::Head::Repository.save(head)
           end
 
-        result = head.send(method)
-        args.merge(id: id)
+        saved_head.send(method) unless method == :save!
+
+        saved_head = domain_aggregate::Head::Repository.save(saved_head)
+        saved_head.as_json.deep_symbolize_keys
       end
     end
   end

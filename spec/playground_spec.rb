@@ -26,18 +26,22 @@ describe App do
   end
 
   let(:match) do
-    {
+    App::Matches.save!(
       fixture: fixture,
       teams: [red_team, blue_team],
       pitch: pitch
-    }
+    )
   end
 
   describe '#save' do
     it '' do
-      App::Matches.save!(match)
-      App::Matches.add_goal!(match, player: player, time: Time.now)
-      App::Matches.score!(match)
+      result = App::Matches.add_goal!(match, player: player, time: Time.now)
+      result = App::Matches.score!(result)
+      expect(
+        SoccerSeason::Domain::Matches::Match::Repository.fetch(
+          SoccerSeason::Domain::Matches::Match.default(result)
+        ).goals.count
+      ).to eq 1
     end
   end
 end
