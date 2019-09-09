@@ -2,6 +2,8 @@ module HecksApp
   class ApplicationPort
     class CommandBuilder
       def self.build(domain_aggregate, app_module)
+        return unless domain_aggregate::Head.constants.include?(:Commands)
+
         domain_aggregate::Head::Commands.constants.each do |command|
           app_command = AppCommand.new(command)
 
