@@ -1,4 +1,5 @@
 require 'hecks_domain'
+require_relative '../drivers/dynamodb'
 require_relative 'application_port/domain_builder'
 require_relative 'application_port/domain_schema'
 

@@ -1,3 +1,14 @@
+PATH
+  remote: .
+  specs:
+    hecks_app (0.1.0)
+      activerecord
+      aws-sdk-dynamodb
+      hecks_domain
+      pry
+      rspec
+      sqlite3
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -64,13 +75,8 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  activerecord
-  aws-sdk-dynamodb
-  hecks_domain
-  pry
-  rspec
+  hecks_app!
   soccer_season
-  sqlite3
 
 BUNDLED WITH
    2.0.2

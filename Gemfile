@@ -1,10 +1,5 @@
 source 'https://rubygems.org'
 
-gem 'hecks_domain'
-gem 'soccer_season'
+gemspec
 
-gem 'rspec'
-gem 'activerecord'
-gem 'sqlite3'
-gem 'pry'
-gem 'aws-sdk-dynamodb'
+gem 'soccer_season'
