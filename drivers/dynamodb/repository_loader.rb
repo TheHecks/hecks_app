@@ -20,18 +20,19 @@ module HecksApp
               domain_object
             end
 
-            def self.fetch(domain_object)
+            def self.fetch(fetchable)
               record = Dynamodb.client.query(
-                table_name: domain_object.class.to_s.split('::')[-2] + '-' + domain_object.class.to_s.split('::')[-1],
+                table_name: to_s.split('::')[-3] + '-' + to_s.split('::')[-2],
                 key_condition_expression: "#id = :id",
                 expression_attribute_names: {
                   "#id" => "id"
                 },
                 expression_attribute_values: {
-                  ":id" => domain_object.id
+                  ":id" => fetchable.respond_to?(:id) ? fetchable.id : fetchable
                 }
               ).items.first.as_json.deep_symbolize_keys
-              domain_object.class.new(record)
+
+              const_get(to_s.gsub('::Repository', '')).new(record)
             end
           end
         end
