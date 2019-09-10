@@ -32,7 +32,7 @@ module HecksApp
                 }
               ).items.first.as_json.deep_symbolize_keys
 
-              const_get(to_s.gsub('::Repository', '')).new(record)
+              const_get(to_s.gsub('::Repository', '')).default(record)
             end
           end
         end
