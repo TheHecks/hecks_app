@@ -23,12 +23,12 @@ module HecksApp
             def self.fetch(fetchable)
               record = Dynamodb.client.query(
                 table_name: to_s.split('::')[-3] + '-' + to_s.split('::')[-2],
-                key_condition_expression: "#id = :id",
+                key_condition_expression: '#id = :id',
                 expression_attribute_names: {
-                  "#id" => "id"
+                  '#id' => 'id'
                 },
                 expression_attribute_values: {
-                  ":id" => fetchable.respond_to?(:id) ? fetchable.id : fetchable
+                  ':id' => fetchable.respond_to?(:id) ? fetchable.id : fetchable
                 }
               ).items.first.as_json.deep_symbolize_keys
 

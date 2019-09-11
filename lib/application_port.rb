@@ -24,6 +24,10 @@ module HecksApp
       @domain
     end
 
+    def self.[](value)
+      CommandRunner.new(value)
+    end
+
     def domain(domain)
       @domain = domain
       DomainBuilder.build(@domain, self)

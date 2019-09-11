@@ -1,25 +1,30 @@
+require_relative 'command_runner/event'
 module HecksApp
   class ApplicationPort
     class CommandRunner
-      def self.run(method, app_module, args)
-        
-        domain_aggregate = ApplicationPort.domain::Domain.const_get(
-          app_module.to_s.split('::').last
-        )
-        head = domain_aggregate::Head.default(args.first)
+      def initialize(runnable)
+        @runnable = runnable
+      end
 
-        saved_head =
-          if head.id
-            domain_aggregate::Head::Repository.fetch(head)
-          else
-            domain_aggregate::Head::Repository.save(head)
+      def method_missing(name, *args, &block)
+        run(name, args, &block)
+      end
+
+      def run(name, args, &block)
+        if @runnable.is_a?(Symbol)
+          r = ApplicationPort.domain::Domain
+            .const_get(@runnable)::Head
+            .superclass
+
+          r.send(name, *args)
+            
+        else
+          @runnable.send(name, *args) do |domain_event|
+            yield(Event.new(domain_event: domain_event)) if block
           end
-
-        
-        saved_head.send(method, args[1]) unless method == :save!
-
-        saved_head = domain_aggregate::Head::Repository.save(saved_head)
-        saved_head.as_json.deep_symbolize_keys
+        end
+      rescue => e
+        yield(Event.new(errors: [e.message])) if block
       end
     end
   end
