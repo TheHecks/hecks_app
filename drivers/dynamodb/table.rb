@@ -6,12 +6,12 @@ module HecksApp
         
         def initialize(aggregate)
           @aggregate = aggregate
-          @head = @aggregate.instance_variable_get(:@head)
-          @fields = @head.instance_variable_get(:@fields)
+          @root = @aggregate.instance_variable_get(:@root)
+          @fields = @root.instance_variable_get(:@fields)
         end
 
         def name
-          [@aggregate.name.to_s, @head.name.to_s].join('-')
+          [@aggregate.name.to_s, @root.name.to_s].join('-')
         end
 
         def aggregate_name

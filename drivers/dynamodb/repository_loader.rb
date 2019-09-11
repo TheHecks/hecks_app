@@ -6,7 +6,7 @@ module HecksApp
       class RepositoryLoader
         def self.load(aggregate_name)
           aggregate = ApplicationPort.domain::Domain.const_get(aggregate_name)
-          aggregate::Head::Repository.class_eval do
+          aggregate::Root::Repository.class_eval do
             def self.save(domain_object)
               id = domain_object.id || SecureRandom.uuid
               Dynamodb.client.put_item(

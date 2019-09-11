@@ -4,18 +4,18 @@ App = HecksApp::ApplicationPort
 
 App.config do
   domain SoccerSeason
-  driver :Dynamodb
+  # driver :Dynamodb
 end
 
 describe App do
-  let(:red_team) { App[:Teams].default(name: 'redteam').tap(&:save!).as_json.deep_symbolize_keys }
-  let(:blue_team) { App[:Teams].default(name: 'blueteam').tap(&:save!).as_json.deep_symbolize_keys }
+  let(:red_team) { App[:Teams].default(name: 'redteam').tap(&:save).as_json.deep_symbolize_keys }
+  let(:blue_team) { App[:Teams].default(name: 'blueteam').tap(&:save).as_json.deep_symbolize_keys }
 
   let(:player) do
-    App[:Players].default(name: 'Chris', team: red_team).tap(&:save!)
+    App[:Players].default(name: 'Chris', team: red_team).tap(&:save)
   end
 
-  let(:pitch) { App[:Pitches].default(name: 'backyard').tap(&:save!) }
+  let(:pitch) { App[:Pitches].default(name: 'backyard').tap(&:save) }
 
   let(:fixture) do
     {
@@ -30,7 +30,7 @@ describe App do
       fixture: fixture,
       teams: [red_team, blue_team],
       pitch: pitch.as_json.deep_symbolize_keys
-    ).tap(&:save!)
+    ).tap(&:save)
   end
 
   describe '#add_team!' do
@@ -45,7 +45,7 @@ describe App do
 
       it do
         errors = nil
-        App[match_with_identical_teams].save! do |result|
+        App[match_with_identical_teams].save do |result|
           result.on_fail do
             errors = result.errors
           end
@@ -60,7 +60,7 @@ describe App do
     it '' do
       match.add_goal!(player: player, time: Time.now)
       match.score!
-      match.save!
+      match.save
 
       expect(
         App[:Matches].fetch(match)
