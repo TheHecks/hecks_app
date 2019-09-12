@@ -3,7 +3,13 @@ module HecksApp
   class ApplicationPort
     class CommandRunner
       def initialize(runnable)
-        @runnable = runnable
+        @runnable =
+          if runnable.is_a?(Symbol)
+            ApplicationPort.domain::Domain
+              .const_get(runnable)::Root
+          else
+            runnable
+          end
       end
 
       def method_missing(name, *args, &block)
@@ -11,15 +17,8 @@ module HecksApp
       end
 
       def run(name, args, &block)
-        if @runnable.is_a?(Symbol)
-          r = ApplicationPort.domain::Domain
-            .const_get(@runnable)::Root
-
-          r.send(name, *args)
-        else
-          @runnable.send(name, *args) do |domain_event|
-            yield(Event.new(domain_event: domain_event)) if block
-          end
+        @runnable.send(name, *args) do |domain_event|
+          yield(Event.new(domain_event: domain_event)) if block
         end
       rescue ApplicationPort.domain::InvariantViolationError => e
         yield(Event.new(errors: [e.message])) && return if block
