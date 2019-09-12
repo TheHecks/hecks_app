@@ -1,5 +1,5 @@
 # Hecks App
-A Hexagonal application framework for working with Domains designed with HecksDomain
+A Hexagonal application framework for working with Domains designed with HecksDomain.
 
 ## Application Port
 The application port serves up all the commands available for all aggregates in the domain.
