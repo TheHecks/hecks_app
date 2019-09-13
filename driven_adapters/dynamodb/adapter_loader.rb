@@ -9,7 +9,7 @@ module HecksApp
         def self.load
           HecksApp::DOMAIN_SCHEMA.aggregates.each do |aggregate|
             TableBuilder.build(Table.new(aggregate))
-            RepositoryLoader.load(aggregate.name)
+            RepositoryLoader.load(Table.new(aggregate))
           end
         end
       end

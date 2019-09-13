@@ -11,6 +11,20 @@ module HecksApp
       @domain = nil
     end
 
+    def self.in_repository(aggregate)
+      aggregate::Root::Repository.class_eval do
+        yield
+      end
+    end
+
+    def self.domain_object_from_repository(repository)
+      const_get(repository.to_s.gsub('::Repository', ''))
+    end
+
+    def self.find_aggregate(name)
+      domain::Domain.const_get(name)
+    end
+
     def self.config(&block)
       instance.instance_eval(&block)
     end
@@ -37,4 +51,3 @@ module HecksApp
     end
   end
 end
-
