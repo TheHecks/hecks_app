@@ -1,5 +1,5 @@
 require 'hecks_domain'
-require_relative '../driven_adapters/dynamodb/lib/dynamodb'
+require 'hecks_adapters/dynamodb'
 require_relative 'application_port/command_runner'
 
 module HecksApp
