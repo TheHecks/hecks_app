@@ -15,16 +15,15 @@ App::Matches.add_goal!(
 
 ## Driven Adapters
 ### Dynamodb
-A driver that will map a Hecks Domain to Dynamodb tables and provide repositories for getting and fetching
+An adapter that will map a Hecks Domain to Dynamodb tables and provide repositories for getting and fetching
 ```
 App.config do
   ...
-  driver :Dynamodb
+  driven_adapter :Dynamodb
 end
 ```
 
 ## Current Work
-#### DynamoDB Driver
 
 ## Backlog
 ### High Priority
@@ -35,8 +34,8 @@ end
 
 ### Icebox
 1. Unit Tests for hecks domain
-1. Make a Logger 'Driven'
-1. Dynamic SQL Driver
-1. Lambda Driver
+1. Make a Logger Driven Adapter
+1. Dynamic SQL Dadapter
+1. Lambda Dadapter
 1. Value Store in Hecks App
-1. Generate a crud server (or make a generic one)
+1. Generate a CRUD server (or make a generic one)

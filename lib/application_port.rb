@@ -1,7 +1,6 @@
 require 'hecks_domain'
 require_relative '../driven_adapters/dynamodb'
-require_relative 'application_port/domain_builder'
-
+require_relative 'application_port/command_runner'
 
 module HecksApp
   class ApplicationPort
@@ -30,7 +29,6 @@ module HecksApp
 
     def domain(domain)
       @domain = domain
-      DomainBuilder.build(@domain, self)
       require_relative 'application_port/domain_schema'
     end
 
