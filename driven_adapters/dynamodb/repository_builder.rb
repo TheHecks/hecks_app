@@ -1,14 +1,8 @@
-require 'active_record'
-require 'securerandom'
-require_relative 'query'
-require_relative 'id'
-require_relative 'put_item'
-
 module HecksApp
   module DrivenAdapters
     class Dynamodb
-      class RepositoryLoader
-        def self.load(table)
+      class RepositoryBuilder
+        def self.build(table)
           aggregate = ApplicationPort.find_aggregate(table.aggregate_name)
 
           ApplicationPort.in_repository(aggregate) do

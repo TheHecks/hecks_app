@@ -1,5 +1,5 @@
 require 'hecks_domain'
-require_relative '../driven_adapters/dynamodb'
+require_relative '../driven_adapters/dynamodb/lib/dynamodb'
 require_relative 'application_port/command_runner'
 
 module HecksApp
@@ -47,7 +47,7 @@ module HecksApp
     end
 
     def driven_adapter(name)
-      @driven_adapters << DrivenAdapters.const_get(name).new
+      @driven_adapters << DrivenAdapters.const_get(name).new.load
     end
   end
 end

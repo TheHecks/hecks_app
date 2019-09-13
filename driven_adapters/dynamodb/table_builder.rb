@@ -1,5 +1,3 @@
-require_relative 'create_table'
-
 module HecksApp
   module DrivenAdapters
     class Dynamodb
