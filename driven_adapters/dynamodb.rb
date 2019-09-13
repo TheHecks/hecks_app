@@ -2,7 +2,7 @@ require 'aws-sdk-dynamodb'
 require_relative 'dynamodb/driver_loader'
 
 module HecksApp
-  module Drivers
+  module DrivenAdapters
     class Dynamodb
       def initialize
         @client = self.class.client
@@ -14,7 +14,7 @@ module HecksApp
       end
 
       def load_driver
-        DriverLoader.load(self)
+        AdapterLoader.load
       end
     end
   end

@@ -4,7 +4,7 @@ App = HecksApp::ApplicationPort
 
 App.config do
   domain SoccerSeason
-  driver :Dynamodb
+  driven_adapter :Dynamodb
 end
 
 describe App do

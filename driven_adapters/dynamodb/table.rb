@@ -1,5 +1,5 @@
 module HecksApp
-  module Drivers
+  module DrivenAdapters
     class Dynamodb
       class Table
         attr_reader :fields

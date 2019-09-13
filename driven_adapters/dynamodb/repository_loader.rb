@@ -1,7 +1,7 @@
 require 'active_record'
 require 'securerandom'
 module HecksApp
-  module Drivers
+  module DrivenAdapters
     class Dynamodb
       class RepositoryLoader
         def self.load(aggregate_name)

@@ -13,7 +13,7 @@ App::Matches.add_goal!(
 )
 ```
 
-## Drivers
+## Driven Adapters
 ### Dynamodb
 A driver that will map a Hecks Domain to Dynamodb tables and provide repositories for getting and fetching
 ```

@@ -3,10 +3,10 @@ require_relative 'table_builder'
 require_relative 'table'
 
 module HecksApp
-  module Drivers
+  module DrivenAdapters
     class Dynamodb
-      class DriverLoader
-        def self.load(driver)
+      class AdapterLoader
+        def self.load
           HecksApp::DOMAIN_SCHEMA.aggregates.each do |aggregate|
             TableBuilder.build(Table.new(aggregate))
             RepositoryLoader.load(aggregate.name)

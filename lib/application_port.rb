@@ -1,5 +1,5 @@
 require 'hecks_domain'
-require_relative '../drivers/dynamodb'
+require_relative '../driven_adapters/dynamodb'
 require_relative 'application_port/domain_builder'
 
 
@@ -8,7 +8,7 @@ module HecksApp
     include Singleton
 
     def initialize
-      @drivers = []
+      @driven_adapters = []
       @domain = nil
     end
 
@@ -34,8 +34,8 @@ module HecksApp
       require_relative 'application_port/domain_schema'
     end
 
-    def driver(name)
-      @drivers << Drivers.const_get(name).new
+    def driven_adapter(name)
+      @driven_adapters << DrivenAdapters.const_get(name).new
     end
   end
 end
