@@ -1,6 +1,8 @@
-require 'hecks_domain'
-require 'hecks_adapters/dynamodb'
+require 'active_record'
+require 'hecks/domain'
+
 require_relative 'application_port/command_runner'
+require_relative 'application_port/driven_adapters'
 
 module HecksApp
   class ApplicationPort
