@@ -22,20 +22,3 @@ App.config do
   driven_adapter :Dynamodb
 end
 ```
-
-## Current Work
-
-## Backlog
-### High Priority
-1. Create a facilitator app
-1. What does a data port look like?
-1. Application Port
-1. Rails Demo
-
-### Icebox
-1. Unit Tests for hecks domain
-1. Make a Logger Driven Adapter
-1. Dynamic SQL Dadapter
-1. Lambda Dadapter
-1. Value Store in Hecks App
-1. Generate a CRUD server (or make a generic one)
