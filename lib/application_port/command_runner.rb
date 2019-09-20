@@ -2,11 +2,17 @@ require_relative 'command_runner/event'
 module HecksApp
   class ApplicationPort
     class CommandRunner
+      attr_reader :runnable
       def initialize(runnable)
         @runnable =
-          if runnable.is_a?(Symbol)
+          case runnable
+          when Symbol
             ApplicationPort.domain::Domain
               .const_get(runnable)::Root
+          when Hash
+            ApplicationPort.domain::Domain
+              .const_get(runnable.keys.first)
+              .const_get(runnable.values.first)
           else
             runnable
           end
