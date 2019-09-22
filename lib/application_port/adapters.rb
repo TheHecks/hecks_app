@@ -1,4 +1,4 @@
 module HecksApp
-  module DrivenAdapters
+  module Adapters
   end
 end

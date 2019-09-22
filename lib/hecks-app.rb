@@ -2,14 +2,16 @@ require 'active_record'
 require 'hecks/domain'
 
 require_relative 'application_port/command_runner'
-require_relative 'application_port/driven_adapters'
+require_relative 'application_port/adapters'
 
 module HecksApp
   class ApplicationPort
     include Singleton
 
+    attr_accessor :adapters
+
     def initialize
-      @driven_adapters = []
+      @adapters = []
       @domain = nil
     end
 
@@ -48,8 +50,11 @@ module HecksApp
       require_relative 'application_port/domain_schema'
     end
 
-    def driven_adapter(name)
-      @driven_adapters << DrivenAdapters.const_get(name).new.load
+    def adapter(name)
+      Adapters.const_get(name).new.tap do |adapter|
+        adapter.load
+        @adapters << adapter
+      end
     end
   end
 end
