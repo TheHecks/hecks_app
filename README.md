@@ -19,6 +19,6 @@ An adapter that will map a Hecks Domain to Dynamodb tables and provide repositor
 ```
 App.config do
   ...
-  driven_adapter :Dynamodb
+  adapter :Dynamodb
 end
 ```
