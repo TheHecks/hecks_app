@@ -3,16 +3,18 @@ require 'hecks/domain'
 
 require_relative 'application_port/command_runner'
 require_relative 'application_port/adapters'
+require_relative 'application_port/event'
 
 module HecksApp
   class ApplicationPort
     include Singleton
 
-    attr_accessor :adapters
+    attr_accessor :adapters, :event
 
     def initialize
       @adapters = []
       @domain = nil
+      @event = Event
     end
 
     def self.in_repository(aggregate)
@@ -31,6 +33,11 @@ module HecksApp
 
     def self.config(&block)
       instance.instance_eval(&block)
+      instance.event.emit(:AppConfigured)
+    end
+
+    def self.subscribe(subscriber, event)
+      instance.event.subscribe(subscriber, event)
     end
 
     def self.domain
