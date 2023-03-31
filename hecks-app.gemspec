@@ -9,6 +9,6 @@ Gem::Specification.new do |s|
   s.files       = Dir['lib/**/*.rb', 'adapters/**/*.rb']
   s.homepage    = 'https://www.example.com'
 
-  s.add_dependency 'activerecord', '~> 6.0'
+  s.add_dependency 'activerecord', '>= 6', '< 8'
   s.add_dependency 'hecks-domain', '0.1.0'
 end
